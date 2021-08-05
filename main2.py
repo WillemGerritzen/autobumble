@@ -1,14 +1,19 @@
 from swipe import Swipe
-from util import Util
-from sys import platform
+from auth import Auth
+from time import sleep
+from driver import Driver
 
-
-util = Util(platform)
-driver = util.set_driver()
-
-swipe = Swipe(driver)
+auth = Auth()
+swipe = Swipe()
 
 if __name__ == '__main__':
-    driver.get('https://bumble.com')
-    while True:
+    Driver.driver.get('https://bumble.com')
+    auth.signin()
+    sleep(2)
+    while not swipe.check_end():
         swipe.right()
+        swipe.check_match()
+    Driver.driver.quit()
+    print('Hit the end of the line')
+
+

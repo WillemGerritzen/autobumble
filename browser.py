@@ -5,12 +5,17 @@ import psutil
 from selenium.webdriver import ChromeOptions, Chrome
 
 
-class Util:
+class Browser:
     def __init__(self, op_sys: str):
         self.platform = op_sys
 
-    def check_browser(self):
-        chrome = ''
+    def check_browser(self) -> None:
+        """
+        Checks which browser is being used
+        :return: None
+        """
+
+        chrome: str = ''
 
         if self.platform == 'linux':
             chrome = 'chromium'
@@ -21,9 +26,13 @@ class Util:
         if chrome in [i.name() for i in psutil.process_iter()]:
             self._close_browser(chrome)
 
-    def set_driver(self):
+    def set_driver(self) -> Chrome:
+        """
+        Chooses the appropriate driver
+        :return: The appropriate driver
+        """
 
-        webdriver_path = ''
+        webdriver_path: str = ''
 
         self.check_browser()
 
@@ -31,20 +40,25 @@ class Util:
 
         if self.platform == 'linux':
             options.add_argument('user-data-dir=~/.config/chromium/Default')
-            # options.add_argument('profile-directory=Default')
+            options.add_argument('profile-directory=Profile 1')
             options.binary_location = '/usr/bin/chromium'
             webdriver_path = '/usr/bin/chromedriver'
 
         if self.platform == 'win32':
-            options.add_argument('user-data-dir=%USERPROFILE%\\AppData\\Google\\Chrome\\User Data')
+            options.add_argument('user-data-dir=C:\\Users\\Willem\\AppData\\Google\\Chrome\\User Data\\Default')
+            options.add_argument('profile-directory=Profile 1')
             webdriver_path = 'C:\\Program Files (x86)\\chromedriver.exe'
-
-
 
         return Chrome(webdriver_path, options=options)
 
     @staticmethod
-    def _close_browser(chrome: str):
+    def _close_browser(chrome: str) -> None:
+        """
+        Closes any open browser that will be used
+        :param chrome: The browser to close
+        :return: None
+        """
+
         if chrome == 'chromium':
             subp = subprocess.Popen(['ps', '-A'], stdout=subprocess.PIPE)
             output, error = subp.communicate()
@@ -60,7 +74,7 @@ class Util:
 
 if __name__ == '__main__':
     from sys import platform
-    util = Util(platform)
+    util = Browser(platform)
     driver = util.set_driver()
     driver.get('https://google.com')
 
