@@ -45,8 +45,8 @@ class Browser:
             webdriver_path = '/usr/bin/chromedriver'
 
         if self.platform == 'win32':
-            options.add_argument('user-data-dir=C:\\Users\\Willem\\AppData\\Google\\Chrome\\User Data\\Default')
-            options.add_argument('profile-directory=Profile 1')
+            options.add_argument('user-data-dir=C:\\Users\\Willem\\AppData\\Local\\Google\\Chrome\\User Data')
+            options.add_argument('profile-directory=Profile 3')
             webdriver_path = 'C:\\Program Files (x86)\\chromedriver.exe'
 
         return Chrome(webdriver_path, options=options)
@@ -77,4 +77,3 @@ if __name__ == '__main__':
     util = Browser(platform)
     driver = util.set_driver()
     driver.get('https://google.com')
-
