@@ -74,6 +74,6 @@ class Browser:
 
 if __name__ == '__main__':
     from sys import platform
-    util = Browser(platform)
-    driver = util.set_driver()
+    browser = Browser(platform)
+    driver = browser.set_driver()
     driver.get('https://google.com')
