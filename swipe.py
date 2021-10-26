@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import NoSuchElementException
 
 
-class Swipe (Driver):
+class Swipe(Driver):
 
     def right(self) -> None:
         """

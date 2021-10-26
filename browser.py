@@ -26,10 +26,10 @@ class Browser:
         if chrome in [i.name() for i in psutil.process_iter()]:
             self._close_browser(chrome)
 
-    def set_driver(self) -> Chrome:
+    def set_driver(self, headless: bool) -> Chrome:
         """
-        Chooses the appropriate driver
-        :return: The appropriate driver
+        Chooses the appropriate d
+        :return: The appropriate d
         """
 
         webdriver_path: str = ''
@@ -47,6 +47,11 @@ class Browser:
         if self.platform == 'win32':
             options.add_argument('user-data-dir=C:\\Users\\Willem\\AppData\\Local\\Google\\Chrome\\User Data')
             options.add_argument('profile-directory=Profile 3')
+
+            if headless:
+                options.add_argument('--headless')
+                options.add_argument('--disable-gpu')
+
             webdriver_path = 'C:\\Program Files (x86)\\chromedriver.exe'
 
         return Chrome(webdriver_path, options=options)
