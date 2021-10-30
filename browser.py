@@ -64,6 +64,10 @@ class Browser:
         :return: None
         """
 
+        print('\n========================')
+        print('Terminating processes')
+        print('========================\n')
+
         if chrome == 'chromium':
             subp = subprocess.Popen(['ps', '-A'], stdout=subprocess.PIPE)
             output, error = subp.communicate()
@@ -74,6 +78,7 @@ class Browser:
                     os.kill(pid, 9)
 
         if chrome == 'chrome.exe':
+
             os.system('taskkill /f /im ' + chrome)
 
 
