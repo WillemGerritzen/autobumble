@@ -69,6 +69,7 @@ class Browser:
         print('========================\n')
 
         if chrome == 'chromium':
+            print('\tWorking...', end='')
             subp = subprocess.Popen(['ps', '-A'], stdout=subprocess.PIPE)
             output, error = subp.communicate()
             target_process = chrome
@@ -76,6 +77,7 @@ class Browser:
                 if target_process in str(line):
                     pid = int(line.split(None, 1)[0])
                     os.kill(pid, 9)
+            print('\r\tWorking... Done!\n', end='')
 
         if chrome == 'chrome.exe':
 

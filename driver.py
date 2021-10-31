@@ -25,7 +25,7 @@ class Driver:
 
         self.wait = WebDriverWait(self.driver, 5)
 
-        print('\tSuccess!\n')
+        print('\tSuccess!')
 
     def right(self) -> None:
         """
@@ -41,7 +41,6 @@ class Driver:
                  '//*[@id="main"]/div/div[1]/main/div[2]/div/div/span/div[2]/div/div[2]/div/div[3]/div/div[1]/span')))
 
         right.click()
-        print('\tSwiped right\n')
 
     def left(self) -> None:
         """
@@ -57,7 +56,6 @@ class Driver:
                  '//*[@id="main"]/div/div[1]/main/div[2]/div/div/span/div[2]/div/div[2]/div/div[1]/div/div[1]/span')))
 
         left.click()
-        print('\tSwiped left\n')
 
     def check_match(self) -> bool:
         """
@@ -108,14 +106,14 @@ class Driver:
         :return: None
         """
 
-        print('\tSigning in...\n')
+        print('\tSigning in...', end='')
 
         sign_in = self.wait.until(ec.presence_of_element_located(
             (By.XPATH, '//*[@id="page"]/div/div/div[1]/div/div[2]/div/div/div/div[2]/div[1]/div/div[2]/a')))
 
         sign_in.click()
 
-        print('\tSuccess!\n')
+        print('\r\tSigning in... Success!\n')
 
     def scrape_about(self) -> list:
 
@@ -216,5 +214,13 @@ class Driver:
     def t_check_interest(self):
         pass
 
-    def t_check_likes(self):
-        pass
+    def t_check_likes(self) -> None:
+        try:
+            button = self.driver.find_element_by_xpath('/html/body/div[2]/div/div/div/div[3]/button[2]/span')
+            button.click()
+
+        except NoSuchElementException:
+            return
+
+
+
